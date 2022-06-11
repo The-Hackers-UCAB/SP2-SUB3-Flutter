@@ -70,25 +70,45 @@ class _CovidPageState extends State<CovidPage> {
       itemBuilder: (context, index) {
         return Container(
           margin: EdgeInsets.all(8.0),
-          child: Card(
-            child: Container(
-              margin: EdgeInsets.all(8.0),
-              child: Column(
-                children: <Widget>[
-                  Text("Country: ${model?.countries[index].country}"),
-                  Text(
-                      "Total Confirmed: ${model?.countries[index].totalConfirmed}"),
-                  Text("Total Deaths: ${model?.countries[index].totalDeaths}"),
-                  Text(
-                      "Total Recovered: ${model?.countries[index].totalRecovered}"),
-                ],
+          child: Row(
+            children: [
+              Container(
+                height: 50,
+                width: 50,
+                decoration: const BoxDecoration(
+                    image: DecorationImage(
+                        image:
+                            NetworkImage('https://picsum.photos/250?image=9'),
+                        fit: BoxFit.cover),
+                    shape: BoxShape.circle),
               ),
-            ),
+              Card(
+                child: Container(
+                  margin: EdgeInsets.all(8.0),
+                  child: Column(
+                    children: <Widget>[
+                      Text("Country: ${model?.countries[index].country}"),
+                      Text(
+                          "Total Confirmed: ${model?.countries[index].totalConfirmed}"),
+                      Text(
+                          "Total Deaths: ${model?.countries[index].totalDeaths}"),
+                      Text(
+                          "Total Recovered: ${model?.countries[index].totalRecovered}"),
+                    ],
+                  ),
+                ),
+              ),
+            ],
           ),
         );
       },
     );
   }
+
+  //BoxDecoration Imagenes() {
+  //  BoxDecoration imagen =
+  //      DecorationImage(image: NetworkImage("urlImage"), fit: BoxFit.cover);
+  //}
 
   Widget _buildLoading() => Center(child: CircularProgressIndicator());
 }
