@@ -1,0 +1,34 @@
+import 'package:flutter/material.dart';
+
+void main() {
+  runApp(MyApp());
+}
+
+class MyApp extends StatelessWidget {
+  const MyApp({Key? key}) : super(key: key);
+
+  AppBar mainAppBar() {
+    return AppBar(
+        backgroundColor: Colors.blue, title: const Text('myOnlineDoctor'));
+  }
+
+  Center mainBody() {
+    return const Center(
+      child: Padding(
+        child: Text("ajaaja"),
+        padding: EdgeInsets.all(15),
+      ),
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    var materialApp = MaterialApp(
+      home: Scaffold(
+        appBar: mainAppBar(),
+        body: mainBody(),
+      ),
+    );
+    return materialApp;
+  }
+}
