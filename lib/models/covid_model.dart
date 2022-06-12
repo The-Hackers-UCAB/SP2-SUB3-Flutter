@@ -1,147 +1,70 @@
 import 'dart:convert';
 
-CovidModel covidModelFromJson(String str) =>
-    CovidModel.fromJson(json.decode(str));
+List<CovidModel> covidModelFromJson(String str) =>
+    List<CovidModel>.from(json.decode(str).map((x) => CovidModel.fromJson(x)));
 
-String covidModelToJson(CovidModel data) => json.encode(data.toJson());
+String covidModelToJson(List<CovidModel> data) =>
+    json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
 
 class CovidModel {
   CovidModel({
     required this.id,
-    required this.message,
-    required this.global,
-    required this.countries,
-    required this.date,
+    required this.sexo,
+    required this.nombre,
+    required this.apellido,
+    required this.especialidad,
+    required this.foto,
   });
 
-  String id;
-  String message;
-  Global global;
-  List<Country> countries;
-  DateTime date;
+  int id;
+  Sexo? sexo;
+  String nombre;
+  String apellido;
+  Especialidad? especialidad;
+  String foto;
 
   factory CovidModel.fromJson(Map<String, dynamic> json) => CovidModel(
-        id: json["ID"],
-        message: json["Message"],
-        global: Global.fromJson(json["Global"]),
-        countries: List<Country>.from(
-            json["Countries"].map((x) => Country.fromJson(x))),
-        date: DateTime.parse(json["Date"]),
+        id: json["id"],
+        sexo: sexoValues.map[json["sexo"]],
+        nombre: json["nombre"],
+        apellido: json["apellido"],
+        especialidad: especialidadValues.map[json["especialidad"]],
+        foto: json["foto"],
       );
 
   Map<String, dynamic> toJson() => {
-        "ID": id,
-        "Message": message,
-        "Global": global.toJson(),
-        "Countries": List<dynamic>.from(countries.map((x) => x.toJson())),
-        "Date": date.toIso8601String(),
+        "id": id,
+        "sexo": sexoValues.reverse?[sexo],
+        "nombre": nombre,
+        "apellido": apellido,
+        "especialidad": especialidadValues.reverse?[especialidad],
+        "foto": foto,
       };
 }
 
-class Country {
-  Country({
-    required this.id,
-    required this.country,
-    required this.countryCode,
-    required this.slug,
-    required this.newConfirmed,
-    required this.totalConfirmed,
-    required this.newDeaths,
-    required this.totalDeaths,
-    required this.newRecovered,
-    required this.totalRecovered,
-    required this.date,
-    required this.premium,
-  });
+enum Especialidad { CARDIOLOGIA, RADIOLOGIA, ODONTOLOGIA, OTORINOLOGIA }
 
-  String id;
-  String country;
-  String countryCode;
-  String slug;
-  int newConfirmed;
-  int totalConfirmed;
-  int newDeaths;
-  int totalDeaths;
-  int newRecovered;
-  int totalRecovered;
-  DateTime date;
-  Premium premium;
+final especialidadValues = EnumValues({
+  "Cardiologia": Especialidad.CARDIOLOGIA,
+  "Odontologia": Especialidad.ODONTOLOGIA,
+  "Otorinologia": Especialidad.OTORINOLOGIA,
+  "Radiologia": Especialidad.RADIOLOGIA
+});
 
-  factory Country.fromJson(Map<String, dynamic> json) => Country(
-        id: json["ID"],
-        country: json["Country"],
-        countryCode: json["CountryCode"],
-        slug: json["Slug"],
-        newConfirmed: json["NewConfirmed"],
-        totalConfirmed: json["TotalConfirmed"],
-        newDeaths: json["NewDeaths"],
-        totalDeaths: json["TotalDeaths"],
-        newRecovered: json["NewRecovered"],
-        totalRecovered: json["TotalRecovered"],
-        date: DateTime.parse(json["Date"]),
-        premium: Premium.fromJson(json["Premium"]),
-      );
+enum Sexo { M, F }
 
-  Map<String, dynamic> toJson() => {
-        "ID": id,
-        "Country": country,
-        "CountryCode": countryCode,
-        "Slug": slug,
-        "NewConfirmed": newConfirmed,
-        "TotalConfirmed": totalConfirmed,
-        "NewDeaths": newDeaths,
-        "TotalDeaths": totalDeaths,
-        "NewRecovered": newRecovered,
-        "TotalRecovered": totalRecovered,
-        "Date": date.toIso8601String(),
-        "Premium": premium.toJson(),
-      };
-}
+final sexoValues = EnumValues({"F": Sexo.F, "M": Sexo.M});
 
-class Premium {
-  Premium();
+class EnumValues<T> {
+  Map<String, T> map;
+  Map<T, String>? reverseMap;
 
-  factory Premium.fromJson(Map<String, dynamic> json) => Premium();
+  EnumValues(this.map);
 
-  Map<String, dynamic> toJson() => {};
-}
-
-class Global {
-  Global({
-    required this.newConfirmed,
-    required this.totalConfirmed,
-    required this.newDeaths,
-    required this.totalDeaths,
-    required this.newRecovered,
-    required this.totalRecovered,
-    required this.date,
-  });
-
-  int newConfirmed;
-  int totalConfirmed;
-  int newDeaths;
-  int totalDeaths;
-  int newRecovered;
-  int totalRecovered;
-  DateTime date;
-
-  factory Global.fromJson(Map<String, dynamic> json) => Global(
-        newConfirmed: json["NewConfirmed"],
-        totalConfirmed: json["TotalConfirmed"],
-        newDeaths: json["NewDeaths"],
-        totalDeaths: json["TotalDeaths"],
-        newRecovered: json["NewRecovered"],
-        totalRecovered: json["TotalRecovered"],
-        date: DateTime.parse(json["Date"]),
-      );
-
-  Map<String, dynamic> toJson() => {
-        "NewConfirmed": newConfirmed,
-        "TotalConfirmed": totalConfirmed,
-        "NewDeaths": newDeaths,
-        "TotalDeaths": totalDeaths,
-        "NewRecovered": newRecovered,
-        "TotalRecovered": totalRecovered,
-        "Date": date.toIso8601String(),
-      };
+  Map<T, String>? get reverse {
+    if (reverseMap == null) {
+      reverseMap = map.map((k, v) => new MapEntry(v, k));
+    }
+    return reverseMap;
+  }
 }

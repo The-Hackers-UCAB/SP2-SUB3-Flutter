@@ -91,9 +91,9 @@ class _CovidPageState extends State<CovidPage> {
     );
   }
 
-  Widget _buildCard(BuildContext context, CovidModel? model) {
+  Widget _buildCard(BuildContext context, List<CovidModel>? model) {
     return ListView.builder(
-      itemCount: model?.countries.length,
+      itemCount: model?.length,
       itemBuilder: (context, index) {
         return Container(
           padding: const EdgeInsets.all(1),
@@ -105,7 +105,8 @@ class _CovidPageState extends State<CovidPage> {
                 width: 55,
                 decoration: BoxDecoration(
                     image: DecorationImage(
-                        image: NetworkImage(toLink()), fit: BoxFit.cover),
+                        image: NetworkImage(toLink(model![index].foto)),
+                        fit: BoxFit.cover),
                     shape: BoxShape.circle),
               ),
               Expanded(
@@ -115,13 +116,10 @@ class _CovidPageState extends State<CovidPage> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
-                        Text("Country: ${model?.countries[index].country}"),
-                        Text(
-                            "Total Confirmed: ${model?.countries[index].totalConfirmed}"),
-                        Text(
-                            "Total Deaths: ${model?.countries[index].totalDeaths}"),
-                        Text(
-                            "Total Recovered: ${model?.countries[index].totalRecovered}"),
+                        Text("Nombre: ${model[index].nombre}"),
+                        Text("Apellido: ${model[index].apellido}"),
+                        Text("Especialidad: ${model[index].especialidad}"),
+                        Text("Sexo: ${model[index].sexo}"),
                       ],
                     ),
                   ),
@@ -135,11 +133,8 @@ class _CovidPageState extends State<CovidPage> {
   }
 
   var count = 0;
-  String toLink() {
-    String link = 'https://picsum.photos/250?image=';
-
-    count++;
-    return link + count.toString();
+  String toLink(String foto) {
+    return 'https://' + foto;
   }
 
   Widget _buildLoading() => Center(child: CircularProgressIndicator());

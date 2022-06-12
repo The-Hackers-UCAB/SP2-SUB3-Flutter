@@ -36,7 +36,7 @@ class CovidInitial extends CovidState {}
 class CovidLoading extends CovidState {}
 
 class CovidLoaded extends CovidState {
-  final CovidModel? covidModel;
+  final List<CovidModel>? covidModel;
   const CovidLoaded(this.covidModel);
 }
 
