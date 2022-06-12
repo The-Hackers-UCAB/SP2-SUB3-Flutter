@@ -6,7 +6,7 @@ import '../models/covid_model.dart';
 
 //import 'package:response/response.dart' hide Response;
 class ApiProvider {
-  //Future<List<CovidModel>?> fetchCovidList() async {
+  //Future<List<DoctorModel>?> fetchCovidList() async {
   //  var client = http.Client();
 
 //    var uri = Uri.parse('https://api.covid19api.com/summary');
@@ -16,9 +16,9 @@ class ApiProvider {
   //    return covidModelFromJson(json1);
   //  }
   //}
-  List<CovidModel>? fetchCovidList() {
-    List<CovidModel>? json = [
-      CovidModel(
+  List<DoctorModel>? fetchCovidList() {
+    List<DoctorModel>? json = [
+      DoctorModel(
           apellido: 'Gomez',
           especialidad: null,
           foto:

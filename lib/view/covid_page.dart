@@ -13,11 +13,11 @@ class CovidPage extends StatefulWidget {
 }
 
 class _CovidPageState extends State<CovidPage> {
-  final CovidBloc _newsBloc = CovidBloc();
+  final DoctorBloc _newsBloc = DoctorBloc();
   final myController = TextEditingController();
   @override
   void initState() {
-    _newsBloc.add(GetCovidList());
+    _newsBloc.add(GetDoctorList());
     super.initState();
   }
 
@@ -31,7 +31,7 @@ class _CovidPageState extends State<CovidPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(title: const Text('COVID-19 List')),
+        appBar: AppBar(title: const Text('MyOnlineDoctor')),
         body: Column(
           children: <Widget>[
             Container(
@@ -40,7 +40,7 @@ class _CovidPageState extends State<CovidPage> {
                 //controller: controller,
                 decoration: InputDecoration(
                     prefixIcon: const Icon(Icons.search),
-                    hintText: 'Covid',
+                    hintText: 'Especialidad',
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(10),
                       borderSide: const BorderSide(color: Colors.blue),
@@ -58,12 +58,12 @@ class _CovidPageState extends State<CovidPage> {
   //}
   Widget _buildListCovid() {
     return Container(
-      margin: EdgeInsets.all(8.0),
+      margin: EdgeInsets.all(0),
       child: BlocProvider(
         create: (_) => _newsBloc,
-        child: BlocListener<CovidBloc, CovidState>(
+        child: BlocListener<DoctorBloc, DoctorState>(
           listener: (context, state) {
-            if (state is CovidError) {
+            if (state is DoctorError) {
               ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(
                   content: Text(state.message!),
@@ -71,15 +71,15 @@ class _CovidPageState extends State<CovidPage> {
               );
             }
           },
-          child: BlocBuilder<CovidBloc, CovidState>(
+          child: BlocBuilder<DoctorBloc, DoctorState>(
             builder: (context, state) {
-              if (state is CovidInitial) {
+              if (state is DoctorInitial) {
                 return _buildLoading();
-              } else if (state is CovidLoading) {
+              } else if (state is DoctorLoading) {
                 return _buildLoading();
-              } else if (state is CovidLoaded) {
-                return _buildCard(context, state.covidModel);
-              } else if (state is CovidError) {
+              } else if (state is DoctorLoaded) {
+                return _buildCard(context, state.doctorModel);
+              } else if (state is DoctorError) {
                 return Container();
               } else {
                 return Container();
@@ -91,41 +91,52 @@ class _CovidPageState extends State<CovidPage> {
     );
   }
 
-  Widget _buildCard(BuildContext context, List<CovidModel>? model) {
+  Widget _buildCard(BuildContext context, List<DoctorModel>? model) {
     return ListView.builder(
       itemCount: model?.length,
       itemBuilder: (context, index) {
-        return Container(
-          padding: const EdgeInsets.all(1),
-          margin: EdgeInsets.all(5.0),
-          child: Row(
-            children: [
-              Container(
-                height: 55,
-                width: 55,
-                decoration: BoxDecoration(
-                    image: DecorationImage(
-                        image: NetworkImage(toLink(model![index].foto)),
-                        fit: BoxFit.cover),
-                    shape: BoxShape.circle),
-              ),
-              Expanded(
-                child: Card(
+        return Card(
+          child: SizedBox(
+            height: 85,
+            width: 100,
+            child: Row(
+              children: [
+                Container(
+                  margin: EdgeInsets.all(3),
+                  height: 55,
+                  width: 55,
+                  decoration: BoxDecoration(
+                      image: DecorationImage(
+                          image: NetworkImage(toLink(model![index].foto)),
+                          fit: BoxFit.cover),
+                      shape: BoxShape.circle),
+                ),
+                Expanded(
                   child: Container(
                     margin: EdgeInsets.all(20),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
-                        Text("Nombre: ${model[index].nombre}"),
-                        Text("Apellido: ${model[index].apellido}"),
-                        Text("Especialidad: ${model[index].especialidad}"),
-                        Text("Sexo: ${model[index].sexo}"),
+                        Text(
+                          "${model[index].nombre} ${model[index].apellido}",
+                          maxLines: 2,
+                          overflow: TextOverflow.ellipsis,
+                          style: const TextStyle(
+                            fontSize: 24,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        Text(
+                          "${model[index].especialidad}",
+                          maxLines: 3,
+                          overflow: TextOverflow.ellipsis,
+                        ),
                       ],
                     ),
                   ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         );
       },

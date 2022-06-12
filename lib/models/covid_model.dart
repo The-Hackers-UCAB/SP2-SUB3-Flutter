@@ -1,13 +1,13 @@
 import 'dart:convert';
 
-List<CovidModel> covidModelFromJson(String str) =>
-    List<CovidModel>.from(json.decode(str).map((x) => CovidModel.fromJson(x)));
+List<DoctorModel> doctorModelFromJson(String str) => List<DoctorModel>.from(
+    json.decode(str).map((x) => DoctorModel.fromJson(x)));
 
-String covidModelToJson(List<CovidModel> data) =>
+String doctorModelToJson(List<DoctorModel> data) =>
     json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
 
-class CovidModel {
-  CovidModel({
+class DoctorModel {
+  DoctorModel({
     required this.id,
     required this.sexo,
     required this.nombre,
@@ -23,7 +23,7 @@ class CovidModel {
   Especialidad? especialidad;
   String foto;
 
-  factory CovidModel.fromJson(Map<String, dynamic> json) => CovidModel(
+  factory DoctorModel.fromJson(Map<String, dynamic> json) => DoctorModel(
         id: json["id"],
         sexo: sexoValues.map[json["sexo"]],
         nombre: json["nombre"],

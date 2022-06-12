@@ -2,45 +2,46 @@ import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 
 import '../models/covid_model.dart';
+import '../models/covid_model.dart';
 import '../resources/api_repository.dart';
 import 'covid_event.dart';
 
-class CovidBloc extends Bloc<CovidEvent, CovidState> {
-  CovidBloc() : super(CovidInitial()) {
+class DoctorBloc extends Bloc<DoctorEvent, DoctorState> {
+  DoctorBloc() : super(DoctorInitial()) {
     final ApiRepository _apiRepository = ApiRepository();
 
-    on<GetCovidList>((event, emit) async {
+    on<GetDoctorList>((event, emit) async {
       try {
-        emit(CovidLoading());
+        emit(DoctorLoading());
         final mList = await _apiRepository.fetchCovidList();
-        emit(CovidLoaded(mList));
+        emit(DoctorLoaded(mList));
         //if (mList?.error != null) {
-        //  emit(CovidError(mList?.error));
+        //  emit(DoctorError(mList?.error));
         //}
       } on NetworkError {
-        emit(CovidError("Failed to fetch data. is your device online?"));
+        emit(DoctorError("Failed to fetch data. is your device online?"));
       }
     });
   }
 }
 
-abstract class CovidState extends Equatable {
-  const CovidState();
+abstract class DoctorState extends Equatable {
+  const DoctorState();
 
   @override
   List<Object?> get props => [];
 }
 
-class CovidInitial extends CovidState {}
+class DoctorInitial extends DoctorState {}
 
-class CovidLoading extends CovidState {}
+class DoctorLoading extends DoctorState {}
 
-class CovidLoaded extends CovidState {
-  final List<CovidModel>? covidModel;
-  const CovidLoaded(this.covidModel);
+class DoctorLoaded extends DoctorState {
+  final List<DoctorModel>? doctorModel;
+  const DoctorLoaded(this.doctorModel);
 }
 
-class CovidError extends CovidState {
+class DoctorError extends DoctorState {
   final String? message;
-  const CovidError(this.message);
+  const DoctorError(this.message);
 }
