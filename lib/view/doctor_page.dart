@@ -99,7 +99,7 @@ class _DoctorPageState extends State<DoctorPage> {
         return Card(
           child: SizedBox(
             height: 85,
-            width: 100,
+            width: 80,
             child: Row(
               children: [
                 Container(

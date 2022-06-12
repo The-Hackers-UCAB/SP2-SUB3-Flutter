@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 
 import 'package:myonlinedoctor/view/doctor_page.dart';
 
-//import 'view/home_page.dart';
+import 'package:flutter/services.dart';
 
 void main() {
   runApp(const MyApp());
@@ -19,6 +19,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'Doctores sin filtro',
       theme: ThemeData(primarySwatch: Colors.blue),
       home: const DoctorPage(),
