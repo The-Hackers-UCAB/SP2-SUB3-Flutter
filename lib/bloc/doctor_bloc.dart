@@ -1,10 +1,9 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 
-import '../models/covid_model.dart';
-import '../models/covid_model.dart';
+import '../models/doctor_model.dart';
 import '../resources/api_repository.dart';
-import 'covid_event.dart';
+import 'doctor_event.dart';
 
 class DoctorBloc extends Bloc<DoctorEvent, DoctorState> {
   DoctorBloc() : super(DoctorInitial()) {

@@ -1,18 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:myonlinedoctor/bloc/covid_event.dart';
 
-import '../bloc/covid_bloc.dart';
-import '../models/covid_model.dart';
+import '../bloc/doctor_bloc.dart';
+import '../bloc/doctor_event.dart';
 
-class CovidPage extends StatefulWidget {
-  const CovidPage({Key? key}) : super(key: key);
+import '../models/doctor_model.dart';
+
+class DoctorPage extends StatefulWidget {
+  const DoctorPage({Key? key}) : super(key: key);
 
   @override
-  _CovidPageState createState() => _CovidPageState();
+  _DoctorPageState createState() => _DoctorPageState();
 }
 
-class _CovidPageState extends State<CovidPage> {
+class _DoctorPageState extends State<DoctorPage> {
   final DoctorBloc _newsBloc = DoctorBloc();
   final myController = TextEditingController();
   @override

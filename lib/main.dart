@@ -4,7 +4,8 @@
 
 import 'package:flutter/material.dart';
 //import 'package:myonlinedoctor/models/doctor.dart';
-import 'package:myonlinedoctor/view/covid_page.dart';
+
+import 'package:myonlinedoctor/view/doctor_page.dart';
 
 //import 'view/home_page.dart';
 
@@ -20,7 +21,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Doctores sin filtro',
       theme: ThemeData(primarySwatch: Colors.blue),
-      home: const CovidPage(),
+      home: const DoctorPage(),
     );
   }
 }

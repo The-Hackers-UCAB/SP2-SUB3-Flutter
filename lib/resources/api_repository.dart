@@ -1,4 +1,4 @@
-import '../models/covid_model.dart';
+import '../models/doctor_model.dart';
 import 'api_provider.dart';
 
 class ApiRepository {

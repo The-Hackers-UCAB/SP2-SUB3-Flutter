@@ -2,7 +2,8 @@ import 'dart:convert';
 
 import 'package:http/http.dart' as http;
 //import 'package:dio/dio.dart' hide Response;
-import '../models/covid_model.dart';
+
+import '../models/doctor_model.dart';
 
 //import 'package:response/response.dart' hide Response;
 class ApiProvider {
