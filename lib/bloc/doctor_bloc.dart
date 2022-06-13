@@ -18,7 +18,7 @@ class DoctorBloc extends Bloc<DoctorEvent, DoctorState> {
         //  emit(DoctorError(mList?.error));
         //}
       } on NetworkError {
-        emit(DoctorError("Failed to fetch data. is your device online?"));
+        emit(DoctorError("Fallo en la busqueda de datos"));
       }
     });
   }
