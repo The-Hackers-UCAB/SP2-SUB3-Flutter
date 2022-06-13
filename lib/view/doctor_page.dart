@@ -134,7 +134,7 @@ class _DoctorPageState extends State<DoctorPage> {
                 ),
                 Expanded(
                   child: Container(
-                    margin: EdgeInsets.all(20),
+                    margin: EdgeInsets.all(10),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
@@ -144,14 +144,17 @@ class _DoctorPageState extends State<DoctorPage> {
                           maxLines: 2,
                           overflow: TextOverflow.ellipsis,
                           style: const TextStyle(
-                            fontSize: 24,
+                            fontSize: 22,
                             fontWeight: FontWeight.bold,
                           ),
                         ),
                         Text(
                           toEspecialidades(model[index].especialidades),
-                          maxLines: 3,
+                          maxLines: 4,
                           overflow: TextOverflow.ellipsis,
+                          style: const TextStyle(
+                            fontSize: 13,
+                          ),
                         ),
                       ],
                     ),
