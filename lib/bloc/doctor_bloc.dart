@@ -12,7 +12,7 @@ class DoctorBloc extends Bloc<DoctorEvent, DoctorState> {
     on<GetDoctorList>((event, emit) async {
       try {
         emit(DoctorLoading());
-        final mList = await _apiRepository.fetchCovidList();
+        final mList = await _apiRepository.fetchDoctorList();
         emit(DoctorLoaded(mList));
         //if (mList?.error != null) {
         //  emit(DoctorError(mList?.error));

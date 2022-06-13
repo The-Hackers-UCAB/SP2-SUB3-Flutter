@@ -15,7 +15,9 @@ class DoctorPage extends StatefulWidget {
 
 class _DoctorPageState extends State<DoctorPage> {
   final DoctorBloc _newsBloc = DoctorBloc();
+
   final myController = TextEditingController();
+  String result = "";
   @override
   void initState() {
     _newsBloc.add(GetDoctorList());
@@ -46,10 +48,15 @@ class _DoctorPageState extends State<DoctorPage> {
                       borderRadius: BorderRadius.circular(10),
                       borderSide: const BorderSide(color: Colors.blue),
                     )),
-                //onChanged: buscarPais(),
+                onSubmitted: (String str) {
+                  setState(() {
+                    result = str;
+                  });
+                  ;
+                },
               ),
             ),
-            Expanded(child: _buildListCovid())
+            Expanded(child: _buildListDoctor())
           ],
         ));
   }
@@ -57,7 +64,7 @@ class _DoctorPageState extends State<DoctorPage> {
   //void buscarPais(String pais){
   //  final suggestion =
   //}
-  Widget _buildListCovid() {
+  Widget _buildListDoctor() {
     return Container(
       margin: EdgeInsets.all(0),
       child: BlocProvider(
@@ -92,6 +99,19 @@ class _DoctorPageState extends State<DoctorPage> {
     );
   }
 
+  //List<DoctorModel> searchEspe(List<DoctorModel>? doctores, String query) {
+  //  final suggestion = doctores!.where((DoctorModel) {
+  //    final especialidades = DoctorModel.especialidades.where((especialidad) {
+  //      final espe = especialidad.nombre;
+
+  //      return espe == query;
+  //    }).toList();
+  //    final input = query.toLowerCase();
+  //    return toEspecialidades(especialidades).contains(input);
+  //  }).toList();
+  //  return suggestion;
+  //}
+
   Widget _buildCard(BuildContext context, List<DoctorModel>? model) {
     return ListView.builder(
       itemCount: model?.length,
@@ -119,7 +139,8 @@ class _DoctorPageState extends State<DoctorPage> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
                         Text(
-                          "${model[index].nombre} ${model[index].apellido}",
+                          sexoDoctor(model[index].sexo) +
+                              " ${model[index].nombre} ${model[index].apellido}",
                           maxLines: 2,
                           overflow: TextOverflow.ellipsis,
                           style: const TextStyle(
@@ -128,7 +149,7 @@ class _DoctorPageState extends State<DoctorPage> {
                           ),
                         ),
                         Text(
-                          "${model[index].especialidad}",
+                          toEspecialidades(model[index].especialidades),
                           maxLines: 3,
                           overflow: TextOverflow.ellipsis,
                         ),
@@ -144,7 +165,27 @@ class _DoctorPageState extends State<DoctorPage> {
     );
   }
 
-  var count = 0;
+  String toEspecialidades(List<String> especialidades) {
+    var listener = especialidades.iterator;
+    String acum = '';
+
+    if (listener.moveNext()) {
+      acum = listener.current;
+    }
+    while (listener.moveNext()) {
+      acum = acum + ', ' + listener.current;
+    }
+    return acum;
+  }
+
+  String sexoDoctor(String sexo) {
+    if (sexo == 'M') {
+      return 'Dr';
+    } else {
+      return 'Dra';
+    }
+  }
+
   String toLink(String foto) {
     return 'https://' + foto;
   }
