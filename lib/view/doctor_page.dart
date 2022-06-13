@@ -15,9 +15,9 @@ class DoctorPage extends StatefulWidget {
 
 class _DoctorPageState extends State<DoctorPage> {
   final DoctorBloc _newsBloc = DoctorBloc();
-
+  String result = '';
   final myController = TextEditingController();
-  String result = "";
+
   @override
   void initState() {
     _newsBloc.add(GetDoctorList());
@@ -148,13 +148,19 @@ class _DoctorPageState extends State<DoctorPage> {
                             fontWeight: FontWeight.bold,
                           ),
                         ),
-                        Text(
-                          toEspecialidades(model[index].especialidades),
-                          maxLines: 4,
-                          overflow: TextOverflow.ellipsis,
-                          style: const TextStyle(
-                            fontSize: 13,
-                          ),
+                        Row(
+                          children: [
+                            Expanded(
+                              child: Text(
+                                toEspecialidades(model[index].especialidades),
+                                maxLines: 4,
+                                overflow: TextOverflow.ellipsis,
+                                style: const TextStyle(
+                                  fontSize: 13,
+                                ),
+                              ),
+                            ),
+                          ],
                         ),
                       ],
                     ),
