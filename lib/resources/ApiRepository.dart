@@ -1,7 +1,7 @@
 import 'package:myonlinedoctor/models/FilterModel.dart';
 
 import '../models/DoctorModel.dart';
-import 'api_provider.dart';
+import 'ApiProvider.dart';
 
 class ApiRepository {
   final _provider = ApiProvider();
@@ -11,4 +11,4 @@ class ApiRepository {
   }
 }
 
-class NetworkError extends Error {}
+

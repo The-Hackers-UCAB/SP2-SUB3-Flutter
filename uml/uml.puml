@@ -1,0 +1,117 @@
+@startuml
+set namespaceSeparator ::
+
+class "myonlinedoctor::resources::ApiRepository.dart::ApiRepository" {
+  -ApiProvider _provider
+  +Future<List<DoctorModel>?> fetchDoctorList()
+}
+
+"myonlinedoctor::resources::ApiRepository.dart::ApiRepository" o-- "myonlinedoctor::resources::ApiProvider.dart::ApiProvider"
+
+class "myonlinedoctor::resources::ApiProvider.dart::ApiProvider" {
+  +Future<List<DoctorModel>?> fetchDoctorList()
+}
+
+class "myonlinedoctor::resources::ApiProvider.dart::FakeData" {
+  +dynamic doctorList()
+}
+
+class "myonlinedoctor::main.dart::MyApp" {
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "myonlinedoctor::main.dart::MyApp"
+
+class "myonlinedoctor::models::DoctorModel.dart::DoctorModel" {
+  +List<String> especialidades
+  +int id
+  +String sexo
+  +String nombre
+  +String apellido
+  +String foto
+}
+
+class "myonlinedoctor::models::FilterModel.dart::FilterModel" {
+  +String campo
+  +T valor
+}
+
+class "myonlinedoctor::view::DoctorPage.dart::DoctorPage" {
+  +DoctorPageState createState()
+}
+
+"flutter::src::widgets::framework.dart::StatefulWidget" <|-- "myonlinedoctor::view::DoctorPage.dart::DoctorPage"
+
+class "myonlinedoctor::view::DoctorPage.dart::DoctorPageState" {
+  +DoctorBloc newsBloc
+  +String valorFiltro
+  +TextEditingController textEditingController
+  +void initState()
+  +void dispose()
+  +Widget build()
+  +Widget buildFilterDoctor()
+  +Widget buildListDoctor()
+  +Widget buildCard()
+  +String formatEspecialidades()
+  +String formatSexo()
+  +String formatLink()
+  +Widget buildLoading()
+}
+
+"myonlinedoctor::view::DoctorPage.dart::DoctorPageState" o-- "myonlinedoctor::bloc::DoctorBloc.dart::DoctorBloc"
+"myonlinedoctor::view::DoctorPage.dart::DoctorPageState" o-- "flutter::src::widgets::editable_text.dart::TextEditingController"
+"flutter::src::widgets::framework.dart::State" <|-- "myonlinedoctor::view::DoctorPage.dart::DoctorPageState"
+
+class "myonlinedoctor::bloc::DoctorBloc.dart::DoctorBloc" {
+}
+
+"bloc::src::bloc.dart::Bloc" <|-- "myonlinedoctor::bloc::DoctorBloc.dart::DoctorBloc"
+
+abstract class "myonlinedoctor::bloc::DoctorBloc.dart::DoctorState" {
+  +List<Object?> props
+}
+
+"equatable::src::equatable.dart::Equatable" <|-- "myonlinedoctor::bloc::DoctorBloc.dart::DoctorState"
+
+class "myonlinedoctor::bloc::DoctorBloc.dart::DoctorInitial" {
+}
+
+"myonlinedoctor::bloc::DoctorBloc.dart::DoctorState" <|-- "myonlinedoctor::bloc::DoctorBloc.dart::DoctorInitial"
+
+class "myonlinedoctor::bloc::DoctorBloc.dart::DoctorLoading" {
+}
+
+"myonlinedoctor::bloc::DoctorBloc.dart::DoctorState" <|-- "myonlinedoctor::bloc::DoctorBloc.dart::DoctorLoading"
+
+class "myonlinedoctor::bloc::DoctorBloc.dart::DoctorLoaded" {
+  +List<DoctorModel>? doctorModel
+}
+
+"myonlinedoctor::bloc::DoctorBloc.dart::DoctorState" <|-- "myonlinedoctor::bloc::DoctorBloc.dart::DoctorLoaded"
+
+class "myonlinedoctor::bloc::DoctorBloc.dart::DoctorError" {
+  +String? message
+}
+
+"myonlinedoctor::bloc::DoctorBloc.dart::DoctorState" <|-- "myonlinedoctor::bloc::DoctorBloc.dart::DoctorError"
+
+class "myonlinedoctor::bloc::DoctorBloc.dart::NetworkError" {
+}
+
+"dart::core::Error" <|-- "myonlinedoctor::bloc::DoctorBloc.dart::NetworkError"
+
+abstract class "myonlinedoctor::bloc::DoctorEvent.dart::DoctorEvent" {
+  +List<Object> props
+}
+
+"equatable::src::equatable.dart::Equatable" <|-- "myonlinedoctor::bloc::DoctorEvent.dart::DoctorEvent"
+
+class "myonlinedoctor::bloc::DoctorEvent.dart::GetDoctorList" {
+  +FilterModel<dynamic> filtro
+}
+
+"myonlinedoctor::bloc::DoctorEvent.dart::GetDoctorList" o-- "myonlinedoctor::models::FilterModel.dart::FilterModel<dynamic>"
+"myonlinedoctor::bloc::DoctorEvent.dart::DoctorEvent" <|-- "myonlinedoctor::bloc::DoctorEvent.dart::GetDoctorList"
+
+
+@enduml

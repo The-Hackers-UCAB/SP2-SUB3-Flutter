@@ -5,6 +5,7 @@ import 'package:http/http.dart' as http;
 import 'package:myonlinedoctor/models/FilterModel.dart';
 
 import '../models/DoctorModel.dart';
+import '../models/Json/fromJson.dart';
 
 class ApiProvider {
 

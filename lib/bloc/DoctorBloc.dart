@@ -2,24 +2,24 @@ import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 
 import '../models/DoctorModel.dart';
-import '../resources/api_repository.dart';
-import 'doctor_event.dart';
+import '../resources/ApiRepository.dart';
+import 'DoctorEvent.dart';
 
 class DoctorBloc extends Bloc<DoctorEvent, DoctorState> {
   DoctorBloc() : super(DoctorInitial()) {
-    final ApiRepository _apiRepository = ApiRepository();
+    final ApiRepository apiRepository = ApiRepository();
 
     on<GetDoctorList>((event, emit) async {
       try {
         
         emit(DoctorLoading());
-        final mList =  await _apiRepository.fetchDoctorList(event.filtro);
+        final mList =  await apiRepository.fetchDoctorList(event.filtro);
         emit(DoctorLoaded(mList));
         //if (mList?.error != null) {
         //  emit(DoctorError(mList?.error));
         //}
       } on NetworkError {
-        emit(const DoctorError("Fallo en la busqueda de datos"));
+        emit(DoctorError("Fallo en la busqueda de datos"));
       }
     });
   }
@@ -45,3 +45,6 @@ class DoctorError extends DoctorState {
   final String? message;
   const DoctorError(this.message);
 }
+
+
+class NetworkError extends Error {}

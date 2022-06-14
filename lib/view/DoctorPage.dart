@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:myonlinedoctor/models/FilterModel.dart';
 
-import '../bloc/doctor_bloc.dart';
-import '../bloc/doctor_event.dart';
+import '../bloc/DoctorBloc.dart';
+import '../bloc/DoctorEvent.dart';
 
 import '../models/DoctorModel.dart';
 
@@ -11,26 +11,26 @@ class DoctorPage extends StatefulWidget {
   const DoctorPage({Key? key}) : super(key: key);
 
   @override
-  _DoctorPageState createState() => _DoctorPageState();
+  DoctorPageState createState() => DoctorPageState();
 }
 
 
 
-class _DoctorPageState extends State<DoctorPage> {
-  final DoctorBloc _newsBloc = DoctorBloc();
-  String result = '';
-  final myController = TextEditingController();
+class DoctorPageState extends State<DoctorPage> {
+  final DoctorBloc newsBloc = DoctorBloc();
+  String valorFiltro = '';
+  final textEditingController = TextEditingController();
     
   @override
   void initState() {
-    _newsBloc.add(GetDoctorList(FilterModel('especialidad',result)));
+    newsBloc.add(GetDoctorList(FilterModel('especialidad', valorFiltro)));
     super.initState();
   }
 
   @override
   void dispose() {
     // Limpia el controlador cuando el Widget se descarte
-    myController.dispose();
+    textEditingController.dispose();
     super.dispose();
   }
 
@@ -42,14 +42,14 @@ class _DoctorPageState extends State<DoctorPage> {
         title: const Text('myOnlineDoctor')),
       body: Column(
         children: <Widget>[
-          _buildFilterDoctor(),
-          Expanded(child: _buildListDoctor())
+          buildFilterDoctor(),
+          Expanded(child: buildListDoctor())
         ],
       ),
     );
   }
 
-  Widget _buildFilterDoctor(){
+  Widget buildFilterDoctor(){
     return Container(
       margin: const EdgeInsets.fromLTRB(16, 16, 16, 16),
       child: TextField(
@@ -63,8 +63,8 @@ class _DoctorPageState extends State<DoctorPage> {
             )),
         onSubmitted: (String str) {
           setState(() {
-            result = str;
-            print(result);
+            valorFiltro = str;
+            print(valorFiltro);
             print("XXXXXXX");
             // didUpdateWidget(widget);
             // dispose();
@@ -76,11 +76,11 @@ class _DoctorPageState extends State<DoctorPage> {
     );
   }
 
-  Widget _buildListDoctor() {
+  Widget buildListDoctor() {
     return Container(
       margin: const EdgeInsets.all(0),
       child: BlocProvider(
-        create: (_) => _newsBloc,
+        create: (_) => newsBloc,
         child: BlocListener<DoctorBloc, DoctorState>(
           listener: (context, state) {
             if (state is DoctorError) {
@@ -94,11 +94,11 @@ class _DoctorPageState extends State<DoctorPage> {
           child: BlocBuilder<DoctorBloc, DoctorState>(
             builder: (context, state) {
               if (state is DoctorInitial) {
-                return _buildLoading();
+                return buildLoading();
               } else if (state is DoctorLoading) {
-                return _buildLoading();
+                return buildLoading();
               } else if (state is DoctorLoaded) {
-                return _buildCard(context, state.doctorModel);
+                return buildCard(context, state.doctorModel);
               } else if (state is DoctorError) {
                 return Container();
               } else {
@@ -111,7 +111,7 @@ class _DoctorPageState extends State<DoctorPage> {
     );
   }
 
-  Widget _buildCard(BuildContext context, List<DoctorModel>? model) {
+  Widget buildCard(BuildContext context, List<DoctorModel>? model) {
     return ListView.builder(
       itemCount: model?.length,
       itemBuilder: (context, index) {
@@ -127,7 +127,7 @@ class _DoctorPageState extends State<DoctorPage> {
                   width: 55,
                   decoration: BoxDecoration(
                       image: DecorationImage(
-                          image: NetworkImage(toLink(model![index].foto)),
+                          image: NetworkImage(formatLink(model![index].foto)),
                           fit: BoxFit.cover),
                       shape: BoxShape.circle),
                 ),
@@ -138,7 +138,7 @@ class _DoctorPageState extends State<DoctorPage> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
                         Text(
-                          sexoDoctor(model[index].sexo) +
+                          formatSexo(model[index].sexo) +
                               " ${model[index].nombre} ${model[index].apellido}",
                           maxLines: 2,
                           overflow: TextOverflow.ellipsis,
@@ -151,7 +151,7 @@ class _DoctorPageState extends State<DoctorPage> {
                           children: [
                             Expanded(
                               child: Text(
-                                toEspecialidades(model[index].especialidades),
+                                formatEspecialidades(model[index].especialidades),
                                 maxLines: 4,
                                 overflow: TextOverflow.ellipsis,
                                 style: const TextStyle(
@@ -173,7 +173,7 @@ class _DoctorPageState extends State<DoctorPage> {
     );
   }
 
-  String toEspecialidades(List<String> especialidades) {
+  String formatEspecialidades(List<String> especialidades) {
     var listener = especialidades.iterator;
     String acum = '';
 
@@ -186,7 +186,7 @@ class _DoctorPageState extends State<DoctorPage> {
     return acum;
   }
 
-  String sexoDoctor(String sexo) {
+  String formatSexo(String sexo) {
     if (sexo == 'M') {
       return 'Dr.';
     } else {
@@ -194,9 +194,9 @@ class _DoctorPageState extends State<DoctorPage> {
     }
   }
 
-  String toLink(String foto) {
+  String formatLink(String foto) {
     return 'https://' + foto;
   }
 
-  Widget _buildLoading() => const Center(child: CircularProgressIndicator());
+  Widget buildLoading() => const Center(child: CircularProgressIndicator());
 }

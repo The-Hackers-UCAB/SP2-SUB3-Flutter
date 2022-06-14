@@ -7,7 +7,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 //import 'package:myonlinedoctor/models/doctor.dart';
 
-import 'package:myonlinedoctor/view/doctor_page.dart';
+import 'package:myonlinedoctor/view/DoctorPage.dart';
 
 import 'package:flutter/services.dart';
 
