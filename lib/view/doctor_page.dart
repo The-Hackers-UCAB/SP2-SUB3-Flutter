@@ -20,12 +20,7 @@ class _DoctorPageState extends State<DoctorPage> {
   final DoctorBloc _newsBloc = DoctorBloc();
   String result = '';
   final myController = TextEditingController();
-<<<<<<< HEAD
-
-=======
-  String result = "";
-  
->>>>>>> a1fa574 (Add Filter)
+    
   @override
   void initState() {
     _newsBloc.add(GetDoctorList(FilterModel('especialidad',result)));
