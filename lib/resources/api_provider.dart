@@ -4,7 +4,7 @@ import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
 import 'package:myonlinedoctor/models/FilterModel.dart';
 
-import '../models/doctor_model.dart';
+import '../models/DoctorModel.dart';
 
 class ApiProvider {
 

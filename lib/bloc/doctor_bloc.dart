@@ -1,7 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 
-import '../models/doctor_model.dart';
+import '../models/DoctorModel.dart';
 import '../resources/api_repository.dart';
 import 'doctor_event.dart';
 

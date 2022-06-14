@@ -5,7 +5,7 @@ import 'package:myonlinedoctor/models/FilterModel.dart';
 import '../bloc/doctor_bloc.dart';
 import '../bloc/doctor_event.dart';
 
-import '../models/doctor_model.dart';
+import '../models/DoctorModel.dart';
 
 class DoctorPage extends StatefulWidget {
   const DoctorPage({Key? key}) : super(key: key);
@@ -143,7 +143,7 @@ class _DoctorPageState extends State<DoctorPage> {
                           maxLines: 2,
                           overflow: TextOverflow.ellipsis,
                           style: const TextStyle(
-                            fontSize: 22,
+                            fontSize: 18,
                             fontWeight: FontWeight.bold,
                           ),
                         ),
