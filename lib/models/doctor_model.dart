@@ -1,8 +1,5 @@
 import 'dart:convert';
-
 import 'dart:core';
-
-import 'dart:convert';
 
 List<DoctorModel> doctorModelFromJson(String str) => List<DoctorModel>.from(
     json.decode(str).map((x) => DoctorModel.fromJson(x)));

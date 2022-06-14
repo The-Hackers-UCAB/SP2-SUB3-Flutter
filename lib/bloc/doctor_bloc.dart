@@ -11,14 +11,15 @@ class DoctorBloc extends Bloc<DoctorEvent, DoctorState> {
 
     on<GetDoctorList>((event, emit) async {
       try {
+        
         emit(DoctorLoading());
-        final mList = await _apiRepository.fetchDoctorList();
+        final mList =  await _apiRepository.fetchDoctorList(event.filtro);
         emit(DoctorLoaded(mList));
         //if (mList?.error != null) {
         //  emit(DoctorError(mList?.error));
         //}
       } on NetworkError {
-        emit(DoctorError("Fallo en la busqueda de datos"));
+        emit(const DoctorError("Fallo en la busqueda de datos"));
       }
     });
   }
