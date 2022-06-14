@@ -188,9 +188,9 @@ class _DoctorPageState extends State<DoctorPage> {
 
   String sexoDoctor(String sexo) {
     if (sexo == 'M') {
-      return 'Dr';
+      return 'Dr.';
     } else {
-      return 'Dra';
+      return 'Dra.';
     }
   }
 
