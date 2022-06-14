@@ -25,7 +25,7 @@ class ApiProvider {
       var json1;
       json1 = response.body;
       // json1 = FakeData().doctorList();
-      print(json1);
+      // print(json1);
       return doctorModelFromJson(json1);
     }
     
