@@ -25,6 +25,7 @@ Aplicación Movil en Flutter para la entrega del [2do ShortPaper](/docs/2erShort
 | Integrante      | Commit                                               | Aporte      |
 | --------------- | ---------------------------------------------------- | ----------- |
 | Antonio Badillo | [+ c94044d](https://github.com/The-Hackers-UCAB/SP2-SUB3-Flutter/commit/c94044da6de26e13a53c75f0ec0fd4a180c7e859) | Filtro de búsqueda para especialidad |
-
+| Brayan Gamboa   | [+ 87a9a5c](https://github.com/The-Hackers-UCAB/SP2-SUB3-Flutter/commit/87a9a5cb0fcab85dd5781d13aeefd455fb30a4e7) | Se agrego el modelo, el manejador de la api |
+| Brayan Gamboa   | [+ c131adb](https://github.com/The-Hackers-UCAB/SP2-SUB3-Flutter/commit/c131adb230cd1f7df17fa6727b26e5768b5ece26) | Se agregaron los detalles finales de la visualizacion de la lista de Doctores |
 
 
