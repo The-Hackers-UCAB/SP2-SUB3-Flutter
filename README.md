@@ -1,8 +1,16 @@
 # myOnlineDoctor Flutter App
 
-Aplicación Movil en Flutter para la entrega del 2do ShortPaper de la materia Desarrollo de Software.
+Aplicación Movil en Flutter para la entrega del [2do ShortPaper](/docs/2erShortPaper-Sub3.pdf) de la materia Desarrollo de Software.
 
-#
+
+## Diagramas
+
+### UML Clases
+![UML Clases](/docs/uml_class_flutter.png)
+
+### UML Secuencia
+![UML Secuencia](/docs/diagramasecuenciaflutter.png)
+
 
 ## Instalación
 
@@ -11,10 +19,12 @@ Aplicación Movil en Flutter para la entrega del 2do ShortPaper de la materia De
 3. Ejecutar el comando **flutter devices** para encontrar el id del dispositivo donde se quiere correr la aplicación.
 4. Ejecutar **flutter run -d <\<id-dispositivo\>>**
 
-#
 
 ## Aportes por integrante
 
 | Integrante      | Commit                                               | Aporte      |
 | --------------- | ---------------------------------------------------- | ----------- |
-| nombre apellido | [+ abcdefg](https://github.com/The-Hackers-UCAB-url) | Descripcion |
+| Antonio Badillo | [+ c94044d](https://github.com/The-Hackers-UCAB/SP2-SUB3-Flutter/commit/c94044da6de26e13a53c75f0ec0fd4a180c7e859) | Filtro de búsqueda para especialidad |
+
+
+
